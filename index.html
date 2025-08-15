@@ -39,7 +39,7 @@
       /* 3. 中间游戏区 */
       #unity-container {
         position: relative;  
-        background: #000;
+        background: #b39e9e;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -64,7 +64,7 @@
           <li><strong>目标：</strong>尽量生存并击败敌人得分</li>
           <li><strong>拾取：</strong>收集地面物品，获得增益和减益</li>
         </ul>
-        <p><strong>提示：</strong>注意听音乐如何根据血量和分数动态变化！</p>
+        <p><strong>实验提示：</strong><span id="cn-audio-hint">请仔细聆听音乐的变化。</span></p>
       </div>
   
       
@@ -94,9 +94,39 @@
           <li><strong>Objective:</strong> Survive & defeat enemies for points</li>
           <li><strong>Pickups:</strong> Collect ground items for buffs and debuff</li>
         </ul>
-        <p><strong>Note on Audio:</strong> Pay attention to how music adapts to your health & score!</p>
+        <p><strong>Experiment Note:</strong> <span id="en-audio-hint">Please pay close attention to the changes in the music.</span></p>
       </div>
     </div>
+    <script>
+      // 页面加载完成后执行
+      window.onload = function() {
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const condition = urlParams.get('condition');
+  
+        const cnHintElement = document.getElementById('cn-audio-hint');
+        const enHintElement = document.getElementById('en-audio-hint');
+  
+        // 定义不同条件下的提示文字
+        let cnHint = "请仔细聆听音乐的变化。"; 
+        let enHint = "Please pay close attention to the changes in the music."; 
+  
+        if (condition === 'static') {
+          cnHint = "在这一轮中，音乐是固定的，不会有动态变化。请以此作为体验的基准。";
+          enHint = "In this round, the music is static and will not change dynamically. Please use this as a baseline for your experience.";
+        } else if (condition === 'health') {
+          cnHint = "在这一轮中，请特别注意音乐是如何根据您的 <strong>健康值</strong> 变化的。";
+          enHint = "In this round, please pay special attention to how the music changes based on your <strong>health level</strong>.";
+        } else if (condition === 'score') {
+          cnHint = "在这一轮中，请特别注意音乐是如何根据您的 <strong>生存时间 (分数)</strong> 变化的。";
+          enHint = "In this round, please pay special attention to how the music changes based on your <strong>survival time (score)</strong>.";
+        }
+  
+        // 更新页面上的文字
+        cnHintElement.innerHTML = cnHint;
+        enHintElement.innerHTML = enHint;
+      };
+    </script>
     <script>
 
       var container = document.querySelector("#unity-container");
@@ -131,11 +161,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Web_unzip.loader.js";
+      var loaderUrl = buildUrl + "/Web_unzip_urlchange.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Web_unzip.data",
-        frameworkUrl: buildUrl + "/Web_unzip.framework.js",
-        codeUrl: buildUrl + "/Web_unzip.wasm",
+        dataUrl: buildUrl + "/Web_unzip_urlchange.data",
+        frameworkUrl: buildUrl + "/Web_unzip_urlchange.framework.js",
+        codeUrl: buildUrl + "/Web_unzip_urlchange.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "QMUL",
         productName: "Dynamic Audio Game",
