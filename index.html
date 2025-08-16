@@ -61,7 +61,7 @@
         <ul>
           <li><strong>移动：</strong>W A S D 键</li>
           <li><strong>攻击：</strong>鼠标瞄准 + 左键射击</li>
-          <li><strong>目标：</strong>尽量生存并击败敌人得分</li>
+          <li><strong>目标：</strong>尽可能长时间地生存下去</li>
           <li><strong>拾取：</strong>收集地面物品，获得增益和减益</li>
         </ul>
         <p><strong>实验提示：</strong><span id="cn-audio-hint">请仔细聆听音乐的变化。</span></p>
@@ -91,7 +91,7 @@
         <ul>
           <li><strong>Movement:</strong> W A S D keys</li>
           <li><strong>Attack:</strong> Aim with mouse + Left-click</li>
-          <li><strong>Objective:</strong> Survive & defeat enemies for points</li>
+          <li><strong>Objective:</strong> Survive as long as possible</li>
           <li><strong>Pickups:</strong> Collect ground items for buffs and debuff</li>
         </ul>
         <p><strong>Experiment Note:</strong> <span id="en-audio-hint">Please pay close attention to the changes in the music.</span></p>
@@ -101,30 +101,18 @@
       // 页面加载完成后执行
       window.onload = function() {
         // 获取URL参数
-        const urlParams = new URLSearchParams(window.location.search);
-        const condition = urlParams.get('condition');
-  
         const cnHintElement = document.getElementById('cn-audio-hint');
         const enHintElement = document.getElementById('en-audio-hint');
   
-        // 定义不同条件下的提示文字
-        let cnHint = "请仔细聆听音乐的变化。"; 
-        let enHint = "Please pay close attention to the changes in the music."; 
+        const cnHint = "请在游戏时，佩戴耳机并仔细聆听背景音乐，关注它与游戏体验的整体配合情况。";
+        const enHint = "As you play, please wear headphones and listen carefully to the background music, paying attention to how it complements the overall gameplay experience.";
   
-        if (condition === 'static') {
-          cnHint = "在这一轮中，音乐是固定的，不会有动态变化。请以此作为体验的基准。";
-          enHint = "In this round, the music is static and will not change dynamically. Please use this as a baseline for your experience.";
-        } else if (condition === 'health') {
-          cnHint = "在这一轮中，请特别注意音乐是如何根据您的 <strong>健康值</strong> 变化的。";
-          enHint = "In this round, please pay special attention to how the music changes based on your <strong>health level</strong>.";
-        } else if (condition === 'score') {
-          cnHint = "在这一轮中，请特别注意音乐是如何根据您的 <strong>生存时间 (分数)</strong> 变化的。";
-          enHint = "In this round, please pay special attention to how the music changes based on your <strong>survival time (score)</strong>.";
+        if (cnHintElement) {
+          cnHintElement.innerHTML = neutralCnHint;
         }
-  
-        // 更新页面上的文字
-        cnHintElement.innerHTML = cnHint;
-        enHintElement.innerHTML = enHint;
+        if (enHintElement) {
+          enHintElement.innerHTML = neutralEnHint;
+        }
       };
     </script>
     <script>
